@@ -147,26 +147,12 @@ void split_bruteforce(int size, std::vector<unsigned char> & alphabet, std::stri
 
 #include <fstream>
 
-int main(int argc, char *argv[])
+int main()
 {
-
-	//for (int i = 0; i < 16; i++)
-	//	sscanf(&hash[i * 2], "%2hhx", &value[i]);
-
-	//if (argc != 3) {
-	//	std::cout << "Usage: archp [dictionary] [hash]\n";
-	//	std::cout << "Usage: archp \crack [hash]\n";
-	//	exit(1);
-	//}
-	//auto filename = argv[1];
-	//auto hash = argv[2];
-
-	string filename = "10m";
+	//EXAMPLE 
+	string filename = "rockyou.txt";
 	string hash = "95ebc3c7b3b9f1d2c40fec14415d3cb8";
 	int bf_chars = 5;
-
-
-
 
 	auto alphabet = get_types();
 
@@ -176,21 +162,17 @@ int main(int argc, char *argv[])
 
 			auto start = std::chrono::high_resolution_clock::now();
 
-			//split_dictionary(get_passwords(filename), hash);
+			split_dictionary(get_passwords(filename), hash);
 
 			if (!task_complete) {
 				//cout << "\nNo match found in dictionary.\n";
 				//std::cout << "\nTesting up to " << bf_chars << " character long passwords\n";
 				split_bruteforce(bf_chars, alphabet, hash);
 			}
-
 		
-			auto finish = std::chrono::high_resolution_clock::now();
-
-			std::cout << std::chrono::duration_cast<std::chrono::milliseconds>(finish - start).count() << "\n";
-
-			task_complete = false;
-			
+		auto finish = std::chrono::high_resolution_clock::now();
+		std::cout << std::chrono::duration_cast<std::chrono::milliseconds>(finish - start).count() << "\n";
+		task_complete = false;			
 	}
 
 	return 0; 
