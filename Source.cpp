@@ -156,24 +156,22 @@ int main()
 
 	auto alphabet = get_types();
 
-	std::vector<int> threads_to_test = {8, 12};
-	for (auto k : threads_to_test) {
-		global_threads = k;
+	global_threads = k;
 
-			auto start = std::chrono::high_resolution_clock::now();
+	auto start = std::chrono::high_resolution_clock::now();
+	
+	//not included in this version
+	//split_dictionary(get_passwords(filename), hash);
 
-			split_dictionary(get_passwords(filename), hash);
-
-			if (!task_complete) {
-				//cout << "\nNo match found in dictionary.\n";
-				//std::cout << "\nTesting up to " << bf_chars << " character long passwords\n";
-				split_bruteforce(bf_chars, alphabet, hash);
-			}
-		
-		auto finish = std::chrono::high_resolution_clock::now();
-		std::cout << std::chrono::duration_cast<std::chrono::milliseconds>(finish - start).count() << "\n";
-		task_complete = false;			
+	if (!task_complete) {
+		//cout << "\nNo match found in dictionary.\n";
+		//std::cout << "\nTesting up to " << bf_chars << " character long passwords\n";
+		split_bruteforce(bf_chars, alphabet, hash);
 	}
-
+	
+	auto finish = std::chrono::high_resolution_clock::now();
+	std::cout << std::chrono::duration_cast<std::chrono::milliseconds>(finish - start).count() << "\n";
+	task_complete = false;		
+	
 	return 0; 
 }
